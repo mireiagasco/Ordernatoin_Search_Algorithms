@@ -50,6 +50,17 @@ public class SearchAlgorithms {
         list = oringialList;
         MergeSort(list);
         System.out.println(list);
+        
+        //Cerca lineal a llista desordenada
+        list = originalList;
+        int i=cercaLineal(list,9);
+        comprovar(i);
+        //Cerca lineal a llista desordenada
+        i= cercaLineal(list,9);
+        comprovar(i);
+        //Cerca binaria a llista desordenada
+        i= cercaBinaria(list,9);
+        comprovar(i);
 
 
     }
@@ -125,6 +136,7 @@ public class SearchAlgorithms {
         List<Integer> l = new ArrayList<>(list.subList(0, list.size() / 2));
         List<Integer> r = new ArrayList<>(list.subList((list.size() / 2), list.size()));
 
+
         MergeSort(l);
         MergeSort(r);
 
@@ -157,7 +169,6 @@ public class SearchAlgorithms {
             a.set(k++, r.get(j++));
         }
     }
-
 
     /**
      * Implementation of the Radix Sort Algorithm
@@ -243,6 +254,44 @@ public class SearchAlgorithms {
         int digit = number % (int) Math.pow(10, pos);
         digit = digit / (int) Math.pow(10, pos - 1);
         return (digit);
+
     }
+    
+    
+     public static int cercaLineal(List<Integer> llist, int x)
+    {
+	for (int i = 0; i < llist.size(); i++) {
+	    if (llist.get(i) == x)
+		return i;
+	}
+	return -1;
+    }
+
+    public static int cercaBinaria(List<Integer> llist, int x)
+    {
+	int indMenor=0;
+	int indMajor=llist.size()-1;
+	while (indMenor <= indMajor) {
+	    int indMitja = indMenor + (indMajor - indMenor) / 2;
+
+	    if (llist.get(indMitja) == x)
+		return indMitja;
+
+	    if (llist.get(indMitja) < x)
+		indMenor = indMitja + 1;
+
+	    else
+		indMajor = indMitja - 1;
+	}
+
+	return -1;
+    }
+
+    public static void comprovar(int n) {
+	if(n !=-1) {
+		System.out.println("S'ha trobat; Posicio :" + n);
+	}
+	else
+		System.out.println("No s'ha trobat el nombre");
 }
 
