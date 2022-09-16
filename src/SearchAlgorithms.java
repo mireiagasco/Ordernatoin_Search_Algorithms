@@ -19,25 +19,35 @@ public class SearchAlgorithms {
         Random rand = new Random();
 
         for (int i = 0; i < 10; i++){
-            list.add(rand.nextInt(100));
+            list.add(rand.nextInt(1000));
         }
+
+        List<Integer> oringialList = list;
 
         System.out.println("Unordered list");
         System.out.println(list);
 
+        System.out.println("Ordered by RadixSort:");
+        RadixSort(list);
+        System.out.println(list);
+
         System.out.println("Ordered by SelectionSort:");
+        list = oringialList;
         SelectionSort(list);
         System.out.println(list);
 
         System.out.println("Ordered by InsertionSort:");
+        list = oringialList;
         InsertionSort(list);
         System.out.println(list);
 
         System.out.println("Ordered by BubbleSort:");
+        list = oringialList;
         BubbleSort(list);
         System.out.println(list);
 
         System.out.println("Llista ordenada by MergeSort:");
+        list = oringialList;
         MergeSort(list);
         System.out.println(list);
 
@@ -89,7 +99,7 @@ public class SearchAlgorithms {
      */
     public static void BubbleSort(List<Integer> list) {
         int n = list.size();
-        int temp = 0;
+        int temp;
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
                 if (list.get(j - 1) > list.get(j)) {
@@ -148,42 +158,57 @@ public class SearchAlgorithms {
         }
     }
 
-    //TODO - Implementation of Radix Sort
+
     /**
      * Implementation of the Radix Sort Algorithm
      * @param list - Integer list (arrayList) to be ordered
      */
     public static void RadixSort(List<Integer> list){
 
-        int maxDigits = getMaxDigitNumber(list);
-        ArrayList<Integer>[] matrix = new ArrayList[10];
+        int maxDigits = getMaxDigitNumber(list);            // number of digits of the longest number
+        ArrayList<Integer>[] listArray = new ArrayList[10]; // array of 10 lists (values from 0 to 9)
 
+        for (int i = 0; i < 10; i++){
+            listArray[i] = new ArrayList<Integer>();
+        }
+
+        // the first iteration fills the listArray with the numbers
+        // each number is placed in the corresponding list according to its less significant digit
         for (int number : list){
-            matrix[getDigit(number, 1)].add(number);
+            listArray[getDigit(number, 1)].add(number);
         }
 
-        // i = digit que estem mirant
-        // pos = posició de l'array de llistes
-        for (int i = 2; i  <= maxDigits; i++){
+        // the following iterations read the numbers in order
+        // each number is replaced according to each digit
+        // d -> digit
+        for (int d = 2; d  <= maxDigits; d++){
 
+            // before the listArray is modified, we calculate how many numbers
+            // there are in each list
             int[] size = new int[10];
-            int j =  0;
+            int i =  0; //list index
 
-            for (List<Integer> pos : matrix){
-                size[j] = pos.size();
-                j++;
+            for (List<Integer> ilist : listArray){  // ilist = list in the i position of the listArray
+                size[i] = ilist.size();
+                i++;
             }
 
-            j = 0;
-            for (List<Integer> pos : matrix){
-                if (size[j] != 0){
-                    for (int h = 0; h < size[j]; h++){
-
-                    }
+            //read the lists in order and replace the numbers
+            i = 0;
+            for (List<Integer> ilist : listArray){
+                for (int in = 0; in < size[i]; size[i]--){  // ni -> index of the number we are treating
+                    listArray[getDigit(ilist.get(in), d)].add(ilist.get(in)); //place the number in its position
+                    ilist.remove(0);    //remove the number from the initial position
                 }
-                j++;
+                i++;
             }
         }
+
+        list.clear();
+        for (int i = 0; i < 10; i++){
+            list.addAll(listArray[i]);
+        }
+
     }
 
     /**
