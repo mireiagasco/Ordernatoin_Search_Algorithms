@@ -15,14 +15,15 @@ import java.util.Random;
 public class SearchAlgorithms {
 
     public static void main (String[] args){
-        List<Integer> list = new ArrayList();
+        List<Integer> list = new ArrayList<>();
         Random rand = new Random();
 
         for (int i = 0; i < 10; i++){
             list.add(rand.nextInt(1000));
         }
 
-        List<Integer> originalList = list;
+        List<Integer> originalList= new ArrayList<>();
+        originalList.addAll(list);
 
         System.out.println("Unordered list");
         System.out.println(list);
@@ -31,34 +32,41 @@ public class SearchAlgorithms {
         RadixSort(list);
         System.out.println(list);
 
+		
         System.out.println("Ordered by SelectionSort:");
-        list = originalList;
+        list.clear();
+        list.addAll(originalList);
         SelectionSort(list);
         System.out.println(list);
 
         System.out.println("Ordered by InsertionSort:");
-        list = originalList;
+        list.clear();
+        list.addAll(originalList);
         InsertionSort(list);
         System.out.println(list);
 
         System.out.println("Ordered by BubbleSort:");
-        list = originalList;
+        list.clear();
+        list.addAll(originalList);
         BubbleSort(list);
         System.out.println(list);
 
         System.out.println("Llista ordenada by MergeSort:");
-        list = originalList;
+        list.clear();
+        list.addAll(originalList);
         MergeSort(list);
         System.out.println(list);
         
         //Cerca lineal a llista desordenada
-        list = originalList;
+        list.clear();
+        list.addAll(originalList);
         int i=cercaLineal(list,9);
         comprovar(i);
-        //Cerca lineal a llista desordenada
+	    BubbleSort(list);
+        //Cerca lineal a llista ordenada
         i= cercaLineal(list,9);
         comprovar(i);
-        //Cerca binaria a llista desordenada
+        //Cerca binaria a llista ordenada
         i= cercaBinaria(list,9);
         comprovar(i);
 
