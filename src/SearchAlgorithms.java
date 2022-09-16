@@ -22,7 +22,7 @@ public class SearchAlgorithms {
             list.add(rand.nextInt(1000));
         }
 
-        List<Integer> oringialList = list;
+        List<Integer> originalList = list;
 
         System.out.println("Unordered list");
         System.out.println(list);
@@ -32,22 +32,22 @@ public class SearchAlgorithms {
         System.out.println(list);
 
         System.out.println("Ordered by SelectionSort:");
-        list = oringialList;
+        list = originalList;
         SelectionSort(list);
         System.out.println(list);
 
         System.out.println("Ordered by InsertionSort:");
-        list = oringialList;
+        list = originalList;
         InsertionSort(list);
         System.out.println(list);
 
         System.out.println("Ordered by BubbleSort:");
-        list = oringialList;
+        list = originalList;
         BubbleSort(list);
         System.out.println(list);
 
         System.out.println("Llista ordenada by MergeSort:");
-        list = oringialList;
+        list = originalList;
         MergeSort(list);
         System.out.println(list);
         
@@ -288,10 +288,12 @@ public class SearchAlgorithms {
     }
 
     public static void comprovar(int n) {
-	if(n !=-1) {
-		System.out.println("S'ha trobat; Posicio :" + n);
-	}
-	else
-		System.out.println("No s'ha trobat el nombre");
+        if (n != -1) {
+            System.out.println("S'ha trobat; Posicio :" + n);
+        }
+        else {
+            System.out.println("No s'ha trobat el nombre");
+        }
+    }
 }
 
